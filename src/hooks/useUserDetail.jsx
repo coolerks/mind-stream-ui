@@ -1,8 +1,8 @@
 import {useSelector} from "react-redux";
-import useRequest from "./useRequest.js";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {getAccountDetail} from "../api/account.js";
 import {Avatar, Tag} from "antd";
+import useDetail from "./useDetail.jsx";
 
 
 const roleMap = {
@@ -24,24 +24,18 @@ const roleMap = {
 
 export default function useUserDetail() {
   const {id, display} = useSelector(state => state.user.userDetail);
-  const {data: user, loading} = useRequest(() => getAccountDetail(id), [id, display])
-  const [userDetail, setUserDetail] = useState([]);
-
-  useEffect(() => {
-    const arr = []
-    user['gender'] = user['gender'] ? '男' : '女';
-    user['status'] = user['status'] === 1 ? <Tag color="cyan">启用</Tag> : <Tag color="red">禁用</Tag>;
-    user['avatar'] = <Avatar src={user['avatar']}/>;
-
-    for (let userKey in user) {
-      if (roleMap[userKey]) {
-        arr.push({key: userKey, name: roleMap[userKey], info: user[userKey]})
-      }
+  const {detail, loading} = useDetail({
+    request: () => getAccountDetail(id),
+    deps: [id, display],
+    resultMap: roleMap,
+    dataParse: (user) => {
+      user['gender'] = user['gender'] ? '男' : '女';
+      user['status'] = user['status'] === 1 ? <Tag color="cyan">启用</Tag> : <Tag color="red">禁用</Tag>;
+      user['avatar'] = <Avatar src={user['avatar']}/>;
     }
-    setUserDetail([...arr])
-  }, [user]);
+  });
 
   return {
-    userDetail, loading
+    detail, loading
   }
 }

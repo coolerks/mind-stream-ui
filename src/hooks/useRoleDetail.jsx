@@ -1,8 +1,8 @@
 import {useSelector} from "react-redux";
-import useRequest from "./useRequest.js";
 import {getRoleDetail} from "../api/role.js";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Tag} from "antd";
+import useDetail from "./useDetail.jsx";
 
 const roleMap = {
   "id": "编号",
@@ -15,29 +15,25 @@ const roleMap = {
 
 export default function useRoleDetail() {
   const {id, display} = useSelector(state => state.role.roleDetail);
-  const {data: role, loading} = useRequest(() => getRoleDetail(id), [id, display])
-  const [roleInfo, setRoleInfo] = useState([]);
-
-  useEffect(() => {
-    const {createBy: user} = role;
-    role['status'] = role['status'] === 1 ? <Tag color="cyan">启用</Tag> : <Tag color="red">禁用</Tag>;
-    const arr = []
-    for (let roleKey in role) {
-      if (roleMap[roleKey]) {
-        arr.push({key: roleKey, name: roleMap[roleKey], info: role[roleKey]})
-      }
+  const {detail, loading} = useDetail({
+    request: () => getRoleDetail(id),
+    deps: [id, display],
+    resultMap: roleMap,
+    dataParse: (role) => role['status'] = role['status'] === 1 ? <Tag color="cyan">启用</Tag> :
+      <Tag color="red">禁用</Tag>,
+    onParseComplete: (role, arr) => {
+      const {createBy: user} = role;
+      arr.push({
+        key: 'user',
+        name: '创建者',
+        info: <>
+          <span>{user?.email} - {user?.nickname}</span>
+        </>
+      })
     }
-    arr.push({
-      key: 'user',
-      name: '创建者',
-      info: <>
-        <span>{user?.email} - {user?.nickname}</span>
-      </>
-    })
-    setRoleInfo([...arr])
-  }, [role]);
+  });
 
   return {
-    roleInfo, loading
+    detail, loading
   }
 }

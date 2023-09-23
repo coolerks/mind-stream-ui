@@ -1,33 +1,14 @@
 import React from 'react';
-import {Table} from 'antd';
 import useRoleDetail from "../../../../../../hooks/useRoleDetail.jsx";
-
-const columns = [
-  {
-    title: '名称',
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: '信息',
-    dataIndex: 'info',
-    key: 'info'
-  }
-];
+import Detail from "../../../../../../component/Detail/detail.jsx";
 
 
 function RoleDetail(props) {
-  const {loading, roleInfo} = useRoleDetail();
-
+  const {loading, detail} = useRoleDetail();
 
   return (
     <>
-      <Table
-        showHeader={false}
-        pagination={false}
-        columns={columns}
-        loading={loading}
-        dataSource={roleInfo}/>
+      <Detail detail={detail} loading={loading}/>
     </>
   );
 }
