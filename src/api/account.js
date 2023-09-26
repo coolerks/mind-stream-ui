@@ -18,3 +18,20 @@ export async function getAccountDetail(id) {
   )
 }
 
+export async function addAccount(data) {
+  return request({
+      url: `/account/`,
+      method: 'post',
+      data
+    }
+  )
+}
+
+export async function updateAccount(data) {
+  return request({
+      url: `/account/`,
+      method: 'put',
+      data
+    }
+  )
+}

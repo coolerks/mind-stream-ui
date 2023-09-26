@@ -8,6 +8,7 @@ import {proTableRequest} from "../../common/proTableRequest.js";
 import {useDispatch} from "react-redux";
 import {displayUserDetailModel} from "../../../../store/user/userSlice.js";
 import UserDetailModal from "../UserDetailModal/user-detail-modal.jsx";
+import UserEditModal from "./UserEditModal/user-edit-modal.jsx";
 
 
 function UserList(props) {
@@ -18,14 +19,7 @@ function UserList(props) {
     valueType: 'option',
     key: 'option',
     render: (text, record, _, action) => [
-      <a
-        key="editable"
-        onClick={() => {
-          action?.startEditable?.(record.id);
-        }}
-      >
-        编辑
-      </a>,
+      <UserEditModal actionRef={actionRef} userId={record.id} update={true} key={'add'}/>,
       <a onClick={() => dispatch(displayUserDetailModel(record.id))}
          rel="noopener noreferrer"
          key="view">
@@ -83,16 +77,7 @@ function UserList(props) {
         dateFormatter="string"
         headerTitle="用户列表"
         toolBarRender={() => [
-          <Button
-            key="button"
-            icon={<PlusOutlined/>}
-            onClick={() => {
-              actionRef.current?.reload();
-            }}
-            type="primary"
-          >
-            新建
-          </Button>
+          <UserEditModal actionRef={actionRef} key={'add'}/>
         ]}
       />
     </>
