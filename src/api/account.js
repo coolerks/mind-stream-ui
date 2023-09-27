@@ -35,3 +35,21 @@ export async function updateAccount(data) {
     }
   )
 }
+
+export async function login(data) {
+  return request({
+      url: `/account/login`,
+      method: 'post',
+      data
+    }
+  )
+}
+
+export async function getLoginUser() {
+  return request({
+      url: `/account/my`,
+      method: 'get'
+    }
+  )
+}
+

@@ -1,10 +1,14 @@
 import Layout from "./component/Layout";
-import Loading from "./component/Loading/index.jsx";
+import {Outlet, useLocation, useRoutes} from "react-router-dom";
+import Login from "./page/Login/login.jsx";
+import route from "./route/index.jsx";
 
 function App() {
+  const location = useLocation();
+  const element = useRoutes(route);
   return (
     <>
-      <Layout/>
+      {location.pathname ==='/login' ? element : <Layout/>}
     </>
   )
 }

@@ -12,6 +12,10 @@ const service = axios.create({
 service.interceptors.request.use(function (config) {
   startLoading();
   // 在发送请求之前做些什么
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.token = token;
+  }
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -28,6 +32,9 @@ service.interceptors.response.use(function (response) {
     return data.data;
   } else {
     message.error(data.msg || data.data);
+    if (data.code === 401) {
+      location.assign('/login');
+    }
     return Promise.reject(data.msg);
   }
 }, function (error) {

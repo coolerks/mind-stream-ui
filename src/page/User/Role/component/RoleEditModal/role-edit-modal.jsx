@@ -56,7 +56,7 @@ function RoleEditModal({actionRef, update = false, roleId}) {
         autoFocusFirstInput
         modalProps={{
           destroyOnClose: true,
-          onCancel: () => console.log('run'),
+          // onCancel: () => console.log('run'),
         }}
         submitTimeout={2000}
         onFinish={submit}

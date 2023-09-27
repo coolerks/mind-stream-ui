@@ -55,7 +55,7 @@ function UserEditModal({actionRef, update = false, userId}) {
         autoFocusFirstInput
         modalProps={{
           destroyOnClose: true,
-          onCancel: () => console.log('run'),
+          // onCancel: () => console.log('run'),
         }}
         submitTimeout={2000}
       >
@@ -128,7 +128,7 @@ function UserEditModal({actionRef, update = false, userId}) {
           />
         }
         {
-          display && <Form.Item
+          (!update || display) && <Form.Item
             label="密码"
             name="password"
             rules={[
@@ -147,7 +147,7 @@ function UserEditModal({actionRef, update = false, userId}) {
           </Form.Item>
         }
         {
-          display && <Form.Item
+          (!update || display) && <Form.Item
             label="确认密码"
             name="password2"
             dependencies={['password']}

@@ -16,6 +16,7 @@ import {
 import Loading from "../Loading/index.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchMenus} from "../../store/menu/menuSlice.js";
+import {fetchUserInfo} from "../../store/user/userSlice.js";
 
 
 const IconMap = {
@@ -57,6 +58,11 @@ export default (props) => {
   const dispatch = useDispatch();
   const menu = useSelector(state => state.menu.menus)
   const actionRef = useRef();
+  const userInfo = useSelector(state => state.user.userInfo);
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/login')
+  }
 
   useEffect(() => {
     setPathname(() => location.pathname)
@@ -64,11 +70,13 @@ export default (props) => {
 
   useEffect(() => {
     dispatch(fetchMenus());
+    dispatch(fetchUserInfo());
   }, [])
 
   useEffect(() => {
     actionRef.current.reload();
   }, [menu]);
+
 
   const [pathname, setPathname] = useState('/');
 
@@ -86,9 +94,9 @@ export default (props) => {
         menu={{request: async () => loopMenuItem(menu), type: "group"}}
         actionRef={actionRef}
         avatarProps={{
-          src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
+          src: userInfo.avatar,
           size: 'small',
-          title: '七妮妮',
+          title: userInfo.nickname,
           render: (props, dom) => {
             return (
               <Dropdown
@@ -98,6 +106,7 @@ export default (props) => {
                       key: 'logout',
                       icon: <LogoutOutlined/>,
                       label: '退出登录',
+                      onClick: logout
                     },
                   ],
                 }}

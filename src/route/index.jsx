@@ -6,6 +6,7 @@ import {Navigate} from "react-router-dom";
 import User from "../page/User/index.jsx";
 import UserList from "../page/User/Users/UserList/user-list.jsx";
 import Role from "../page/User/Role/role.jsx";
+import Login from "../page/Login/login.jsx";
 
 export default [
   {
@@ -79,6 +80,12 @@ export default [
     name: '管理',
     icon: <SmileFilled/>,
     element: <First/>
+  },
+  {
+    path: '/login',
+    name: '登录',
+    hidden: true,
+    element: <Login />
   },
   {
     path: '*',

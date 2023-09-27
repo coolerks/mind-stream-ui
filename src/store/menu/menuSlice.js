@@ -10,7 +10,6 @@ export const menuSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(fetchMenus.fulfilled, (state, action) => {
-      console.log(action.payload)
       state.menus = action.payload;
     })
   }
