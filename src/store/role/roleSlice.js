@@ -6,7 +6,8 @@ export const roleSlice = createSlice({
   initialState: {
     roleDetail: {
       display: false,
-      id: '0'
+      id: '0',
+      count: 0
     },
     roleAdd: {
       display: false
@@ -16,9 +17,11 @@ export const roleSlice = createSlice({
     openRoleDetailModal(state, action) {
       state.roleDetail.id = action.payload;
       state.roleDetail.display = true;
+      state.roleDetail.count++;
     },
     closeRoleDetailModal(state) {
       state.roleDetail.display = false;
+      state.roleDetail.count--;
     },
     closeRoleAddModal(state) {
       state.roleAdd.display = true;

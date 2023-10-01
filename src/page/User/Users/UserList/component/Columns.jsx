@@ -62,19 +62,5 @@ export default [
     dataIndex: 'lastLoginTime',
     sorter: true,
     hideInSearch: true,
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'created_at',
-    valueType: 'dateRange',
-    hideInTable: true,
-    search: {
-      transform: (value) => {
-        return {
-          startTime: value[0],
-          endTime: value[1],
-        };
-      },
-    },
   }
 ];

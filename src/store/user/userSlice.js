@@ -7,7 +7,8 @@ export const userSlice = createSlice({
     userInfo: {},
     userDetail: {
       display: false,
-      id: '0'
+      id: '0',
+      count: 0
     }
   },
   reducers: {
@@ -17,9 +18,11 @@ export const userSlice = createSlice({
     displayUserDetailModel: (state, action) => {
       state.userDetail.id = action.payload;
       state.userDetail.display = true;
+      state.userDetail.count++;
     },
     closeUserDetailModel: state => {
       state.userDetail.display = false
+      state.userDetail.count--;
     }
   },
   extraReducers(builder) {

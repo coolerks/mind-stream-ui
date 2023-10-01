@@ -16,7 +16,9 @@ export default function useDetail({request, deps, resultMap, dataParse, onParseC
 
   useEffect(() => {
     const arr = [];
-    dataParse(data);
+    if (dataParse) {
+      dataParse(data);
+    }
     for (let key in data) {
       if (resultMap[key]) {
         arr.push({key: key, name: resultMap[key], info: data[key]})

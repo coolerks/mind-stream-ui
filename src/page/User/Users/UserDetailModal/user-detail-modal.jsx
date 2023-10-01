@@ -26,7 +26,7 @@ const content = {
 
 function UserDetailModal(props) {
   const dispatch = useDispatch();
-  const {id, display} = useSelector(state => state.user.userDetail);
+  const {display} = useSelector(state => state.user.userDetail);
   const [key, setKey] = useState("detail");
   return (
     <>
