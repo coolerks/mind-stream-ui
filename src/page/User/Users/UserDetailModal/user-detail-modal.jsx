@@ -31,12 +31,15 @@ function UserDetailModal(props) {
   return (
     <>
       <Modal title="用户详情"
+             centered={true}
              open={display}
              onCancel={() => dispatch(closeUserDetailModel())}
              footer={null}>
         <Segmented onChange={(k) => setKey(k)}
                    defaultValue={'detail'} block options={options}/>
-        {content[key]}
+        <div style={{height: '80vh', overflow: "auto"}}>
+          {content[key]}
+        </div>
       </Modal>
     </>
   );

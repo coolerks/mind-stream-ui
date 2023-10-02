@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Modal, Segmented} from "antd";
 import {SafetyOutlined, UnorderedListOutlined, UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,19 +16,19 @@ const options = [
   {
     label: '权限信息',
     value: 'permission',
-    icon: <SafetyOutlined />
+    icon: <SafetyOutlined/>
   },
   {
     label: '用户列表',
     value: 'userList',
-    icon: <UserOutlined />
+    icon: <UserOutlined/>
   }
 ]
 
 const content = {
-  'detail': <RoleDetail />,
-  'permission': <RolePermissions />,
-  'userList': <RoleUserList />
+  'detail': <RoleDetail/>,
+  'permission': <RolePermissions/>,
+  'userList': <RoleUserList/>
 }
 
 function RoleDetailModal(props) {
@@ -38,12 +38,15 @@ function RoleDetailModal(props) {
   return (
     <>
       <Modal title="角色详情"
+             centered={true}
              open={display}
              onCancel={() => dispatch(closeRoleDetailModal())}
              footer={null}>
         <Segmented onChange={(k) => setKey(k)}
                    defaultValue={'detail'} block options={options}/>
-        {content[key]}
+        <div style={{height: '80vh', overflow: "auto"}}>
+          {content[key]}
+        </div>
       </Modal>
     </>
   );

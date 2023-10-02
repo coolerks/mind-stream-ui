@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import {endLoading, startLoading} from "../store/loading/loadingSlice.js";
 
 
-export default function useRequest(request, deps = []) {
+export default function useRequest(request, deps = [], initValue = {}) {
   const dispatch = useDispatch();
-  const [data, setData] = useState({});
+  const [data, setData] = useState(initValue);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

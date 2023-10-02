@@ -26,6 +26,7 @@ export async function addRole(data) {
     }
   )
 }
+
 export async function updateRole(data) {
   return request({
       url: `/role/`,
@@ -33,4 +34,30 @@ export async function updateRole(data) {
       data
     }
   )
+}
+
+export async function getUserRoleIds(userId) {
+  return request({
+      url: `/account/role/list/${userId}`,
+      method: 'get'
+    }
+  )
+}
+
+
+export async function getAllRoles() {
+  return request({
+      url: `/role/list/all`,
+      method: 'get'
+    }
+  )
+}
+
+
+export async function addUserRoles(data) {
+  return request({
+    url: `/account/role/`,
+    method: 'post',
+    data
+  })
 }

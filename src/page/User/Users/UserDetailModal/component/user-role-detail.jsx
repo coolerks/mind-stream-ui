@@ -40,8 +40,8 @@ function UserRoleDetail(props) {
     key: 'operation',
     render: (_, record) => (
       <Popconfirm
-        title="移除用户"
-        description="将在此角色下移除该用户?"
+        title="移除角色"
+        description="将在此用户下移除该角色?"
         okText="是"
         cancelText="否"
         onConfirm={async e => await removeUserRole(record.roleId)}

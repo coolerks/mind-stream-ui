@@ -7,6 +7,7 @@ import User from "../page/User/index.jsx";
 import UserList from "../page/User/Users/UserList/user-list.jsx";
 import Role from "../page/User/Role/role.jsx";
 import Login from "../page/Login/login.jsx";
+import Permissions from "../page/User/Permissions/permissions.jsx";
 
 export default [
   {
@@ -60,12 +61,17 @@ export default [
       {
         path: 'list',
         name: '全部用户',
-        element: <UserList />
+        element: <UserList/>
       },
       {
         path: 'role',
         name: '全部角色',
-        element: <Role />
+        element: <Role/>
+      },
+      {
+        path: 'permission',
+        name: '权限管理',
+        element: <Permissions/>
       }
     ]
   },
@@ -85,7 +91,7 @@ export default [
     path: '/login',
     name: '登录',
     hidden: true,
-    element: <Login />
+    element: <Login/>
   },
   {
     path: '*',

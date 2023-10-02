@@ -9,6 +9,10 @@ export const userSlice = createSlice({
       display: false,
       id: '0',
       count: 0
+    },
+    assignRole: {
+      display: false,
+      id: '0'
     }
   },
   reducers: {
@@ -23,6 +27,13 @@ export const userSlice = createSlice({
     closeUserDetailModel: state => {
       state.userDetail.display = false
       state.userDetail.count--;
+    },
+    displayAssignRoleModal: (state, action) => {
+      state.assignRole.id = action.payload;
+      state.assignRole.display = true;
+    },
+    closeAssignRoleModal: state => {
+      state.assignRole.display = false;
     }
   },
   extraReducers(builder) {
@@ -44,7 +55,9 @@ export const fetchUserInfo = createAsyncThunk("user/getLoginUser",
 export const {
   updateUser,
   displayUserDetailModel,
-  closeUserDetailModel
+  closeUserDetailModel,
+  displayAssignRoleModal,
+  closeAssignRoleModal
 } = userSlice.actions
 
 export default userSlice.reducer

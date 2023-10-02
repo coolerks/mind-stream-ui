@@ -6,9 +6,10 @@ import {getAccountList} from "../../../../api/account.js";
 import columns from "./component/Columns.jsx";
 import {proTableRequest} from "../../common/proTableRequest.js";
 import {useDispatch} from "react-redux";
-import {displayUserDetailModel} from "../../../../store/user/userSlice.js";
+import {displayAssignRoleModal, displayUserDetailModel} from "../../../../store/user/userSlice.js";
 import UserDetailModal from "../UserDetailModal/user-detail-modal.jsx";
 import UserEditModal from "./UserEditModal/user-edit-modal.jsx";
+import AssignRolesModal from "./assign-roles-modal/assign-roles-modal.jsx";
 
 
 function UserList(props) {
@@ -25,6 +26,9 @@ function UserList(props) {
          key="view">
         查看
       </a>,
+      <a onClick={() => dispatch(displayAssignRoleModal(record.id))} key={'assign-role'}>
+        分配角色
+      </a>,
       <TableDropdown
         key="actionGroup"
         onSelect={() => action?.reload()}
@@ -38,6 +42,7 @@ function UserList(props) {
   return (
     <>
       <UserDetailModal/>
+      <AssignRolesModal/>
       <ProTable
         columns={[...columns, operations]}
         actionRef={actionRef}
