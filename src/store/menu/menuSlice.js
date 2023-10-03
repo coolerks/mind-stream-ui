@@ -4,13 +4,25 @@ import {getMenus} from "../../api/menu.js";
 export const menuSlice = createSlice({
   name: 'menu',
   initialState: {
-    menus: []
+    menus: [],
+    remoteMenuMap: {},
+    loadComplete: false
   },
   reducers: {
   },
   extraReducers(builder) {
     builder.addCase(fetchMenus.fulfilled, (state, action) => {
       state.menus = action.payload;
+      const map = {};
+      function mapMenu(list) {
+        list.forEach(it => {
+          map[it.path] = true;
+          mapMenu(it.routes);
+        })
+      }
+      mapMenu(action.payload);
+      state.remoteMenuMap = map;
+      state.loadComplete = true;
     })
   }
 })

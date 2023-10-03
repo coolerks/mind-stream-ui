@@ -17,7 +17,6 @@ const AssignRoles = () => {
   }, [roleKeys]);
 
   const onChange = async (newTargetKeys, direction, moveKeys) => {
-    console.log(newTargetKeys, direction, moveKeys);
     const data = {userId: id, roleIds: moveKeys};
     setLoading(true);
     const time = new Date().getTime();

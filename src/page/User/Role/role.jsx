@@ -5,8 +5,14 @@ import {proTableRequest} from "../common/proTableRequest.js";
 import {getRoleList} from "../../../api/role.js";
 import RoleDetailModal from "./component/RoleDetailModal/RoleDetailModal.jsx";
 import {useDispatch} from "react-redux";
-import {openRoleDetailModal} from "../../../store/role/roleSlice.js";
+import {
+  displayAssignMenusModal,
+  displayAssignPermissionModal,
+  openRoleDetailModal
+} from "../../../store/role/roleSlice.js";
 import RoleEditModal from "./component/RoleEditModal/role-edit-modal.jsx";
+import AssignPermissionsModal from "./component/AssignPermissionsModal/assign-permissions-modal.jsx";
+import AssignMenusModal from "./component/AssignMenusModal/assign-menus-modal.jsx";
 
 
 function Role(props) {
@@ -30,6 +36,16 @@ function Role(props) {
         rel="noopener noreferrer" key="view">
         查看
       </a>,
+      <a onClick={() => {
+        dispatch(displayAssignPermissionModal(record.id))
+      }} key={'assign-permission'}>
+        分配权限
+      </a>,
+      <a onClick={() => {
+        dispatch(displayAssignMenusModal(record.id))
+      }} key={'assign-menus'}>
+        管理菜单
+      </a>,
       <TableDropdown
         key="actionGroup"
         onSelect={() => action?.reload()}
@@ -44,6 +60,8 @@ function Role(props) {
   return (
     <>
       <RoleDetailModal/>
+      <AssignPermissionsModal/>
+      <AssignMenusModal/>
       <ProTable
         columns={
           [...columns, operations]

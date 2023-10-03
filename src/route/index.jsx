@@ -8,12 +8,15 @@ import UserList from "../page/User/Users/UserList/user-list.jsx";
 import Role from "../page/User/Role/role.jsx";
 import Login from "../page/Login/login.jsx";
 import Permissions from "../page/User/Permissions/permissions.jsx";
+import NotFind from "../page/Error/not-find.jsx";
+import NoPermissions from "../page/Error/no-permissions.jsx";
 
 export default [
   {
     path: '/dashboard',
     name: '仪表盘',
     icon: <DashboardOutlined/>,
+    verify: false,
     element: <Third/>
   },
   {
@@ -94,10 +97,33 @@ export default [
     element: <Login/>
   },
   {
+    path: '/',
+    name: '主页',
+    hidden: true,
+    verify: false,
+    element: <Navigate to={'/dashboard'} />
+  },
+  {
+    path: '/404',
+    name: '404',
+    hidden: true,
+    element: <NotFind />,
+    verify: false,
+    layout: false
+  },
+  {
+    path: '/403',
+    name: '403',
+    hidden: true,
+    element: <NoPermissions/>,
+    verify: false,
+    layout: false
+  },
+  {
     path: '*',
     name: '404',
     hidden: true,
-    icon: <SmileFilled/>,
-    element: <First/>
+    element: <Navigate to={'/404'} replace={true} />
   }
 ]
+

@@ -11,6 +11,14 @@ export const roleSlice = createSlice({
     },
     roleAdd: {
       display: false
+    },
+    assignPermissions: {
+      display: false,
+      id: '0'
+    },
+    assignMenus: {
+      display: false,
+      id: '0'
     }
   },
   reducers: {
@@ -25,12 +33,30 @@ export const roleSlice = createSlice({
     },
     closeRoleAddModal(state) {
       state.roleAdd.display = true;
+    },
+    displayAssignPermissionModal(state, action) {
+      state.assignPermissions.display = true;
+      state.assignPermissions.id = action.payload;
+    },
+    closeAssignPermissionModal(state) {
+      state.assignPermissions.display = false;
+    },
+    displayAssignMenusModal(state, action) {
+      state.assignMenus.id = action.payload;
+      state.assignMenus.display = true;
+    },
+    closeAssignMenusModal(state) {
+      state.assignMenus.display = false;
     }
   }
 })
 export const {
   openRoleDetailModal,
-  closeRoleDetailModal
+  closeRoleDetailModal,
+  displayAssignPermissionModal,
+  closeAssignPermissionModal,
+  displayAssignMenusModal,
+  closeAssignMenusModal
 } = roleSlice.actions
 
 export default roleSlice.reducer
