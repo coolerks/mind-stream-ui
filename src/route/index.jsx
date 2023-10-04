@@ -94,7 +94,9 @@ export default [
     path: '/login',
     name: '登录',
     hidden: true,
-    element: <Login/>
+    element: <Login/>,
+    verify: false,
+    layout: false
   },
   {
     path: '/',
