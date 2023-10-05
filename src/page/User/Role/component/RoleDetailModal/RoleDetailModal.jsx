@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Modal, Segmented} from "antd";
-import {SafetyOutlined, UnorderedListOutlined, UserOutlined} from "@ant-design/icons";
+import {UnorderedListOutlined, UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {closeRoleDetailModal} from "../../../../../store/role/roleSlice.js";
 import RoleDetail from "./component/role-detail.jsx";
@@ -14,11 +14,6 @@ const options = [
     icon: <UnorderedListOutlined/>
   },
   {
-    label: '权限信息',
-    value: 'permission',
-    icon: <SafetyOutlined/>
-  },
-  {
     label: '用户列表',
     value: 'userList',
     icon: <UserOutlined/>
@@ -27,7 +22,6 @@ const options = [
 
 const content = {
   'detail': <RoleDetail/>,
-  'permission': <RolePermissions/>,
   'userList': <RoleUserList/>
 }
 
