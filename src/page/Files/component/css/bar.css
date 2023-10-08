@@ -1,0 +1,15 @@
+.bar {
+    padding: 5px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.5s;
+    user-select: none;
+}
+
+.bar:hover {
+    background-color: #f0f0f0;
+}
+
+.bar:active {
+    background-color: #d9d9d9;
+}

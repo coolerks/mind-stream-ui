@@ -10,6 +10,7 @@ import Login from "../page/Login/login.jsx";
 import Permissions from "../page/User/Permissions/permissions.jsx";
 import NotFind from "../page/Error/not-find.jsx";
 import NoPermissions from "../page/Error/no-permissions.jsx";
+import Files from "../page/Files/files.jsx";
 
 export default [
   {
@@ -53,7 +54,7 @@ export default [
     path: '/file',
     name: '附件',
     icon: <SmileFilled/>,
-    element: <First/>
+    element: <Files/>
   },
   {
     path: '/users',
