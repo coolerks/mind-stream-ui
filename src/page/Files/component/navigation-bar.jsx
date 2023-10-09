@@ -1,13 +1,19 @@
 import React from 'react';
-import {Space} from "antd";
-import {ArrowLeftOutlined, ArrowRightOutlined, CaretRightOutlined, HomeOutlined} from "@ant-design/icons";
+import {Button, Space} from "antd";
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  CaretRightOutlined,
+  CloudUploadOutlined, FolderAddOutlined,
+  HomeOutlined, ReloadOutlined
+} from "@ant-design/icons";
 import BarItem from "./bar-item.jsx";
 
-function NavigationBar({bars, jump, back, forward, home}) {
+function NavigationBar({bars, jump, back, forward, home, children}) {
   return (
     <>
       <Space>
-        <Space style={{border: '1px solid #d9d9d9', padding: 10, borderRadius: '5px'}}>
+        <Space style={{border: '1px solid #d9d9d9', backgroundColor: '#ffffff', padding: 10, borderRadius: '8px'}}>
           <BarItem onClick={back}>
             <ArrowLeftOutlined/>
           </BarItem>
@@ -15,7 +21,9 @@ function NavigationBar({bars, jump, back, forward, home}) {
             <ArrowRightOutlined/>
           </BarItem>
         </Space>
-        <Space split={<CaretRightOutlined/>} style={{border: '1px solid #d9d9d9', padding: 10, borderRadius: '5px'}}>
+        {children}
+        <Space split={<CaretRightOutlined/>}
+               style={{border: '1px solid #d9d9d9', backgroundColor: '#ffffff', padding: 10, borderRadius: '8px'}}>
           <BarItem onClick={home}>
             <HomeOutlined/>
           </BarItem>

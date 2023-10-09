@@ -1,9 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Outlet} from "react-router-dom";
 import {Counter} from "../../component/Counter.jsx";
-import useRequest from "../../hooks/useRequest.js";
-import {getAccountList} from "../../api/account.js";
-import {useSelector} from "react-redux";
 
 
 function Index(props) {

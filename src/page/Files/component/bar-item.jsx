@@ -1,5 +1,5 @@
 import React from 'react';
-import bar from './css/bar.css'
+import './css/bar.css'
 
 function BarItem(props) {
   return (

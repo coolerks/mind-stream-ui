@@ -91,6 +91,7 @@ export default (props) => {
         title={'Mind Stream'}
         {...defaultProps}
         location={{pathname}}
+        colorPrimary={'#637dff'}
         menu={{request: async () => loopMenuItem(menu), type: "group"}}
         actionRef={actionRef}
         avatarProps={{
