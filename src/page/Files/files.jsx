@@ -1,10 +1,10 @@
 import React from 'react';
-import FileList from "./component/file-list.jsx";
+import {Outlet} from "react-router-dom";
 
 function Files(props) {
   return (
     <>
-      <FileList />
+      <Outlet/>
     </>
   );
 }

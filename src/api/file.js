@@ -38,3 +38,10 @@ export async function uploadComplete(id) {
     method: 'post'
   })
 }
+
+export async function getFileDetail(id) {
+  return request({
+    url: `/file/detail/${id}`,
+    method: 'get'
+  })
+}

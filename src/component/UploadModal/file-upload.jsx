@@ -5,7 +5,7 @@ import {message, Upload} from "antd";
 import {InboxOutlined} from "@ant-design/icons";
 import {UPLOAD_URL} from "../../constant/systemConstant.js";
 
-const { Dragger } = Upload;
+const {Dragger} = Upload;
 
 function FileUpload({folderId, preUpload, onComplete}) {
   const {data: config} = useRequest(() => getUploadConfig(), []);
@@ -70,7 +70,9 @@ function FileUpload({folderId, preUpload, onComplete}) {
         if (onComplete) {
           onComplete(path);
         }
-        await uploadComplete(info.file?.id);
+        if (info.file.id) {
+          await uploadComplete(info.file?.id);
+        }
         message.success(`${info.file.name} 上传成功.`);
       } else if (status === 'error') {
         message.error(`${info.file.name} 上传失败.`);

@@ -11,6 +11,8 @@ import Permissions from "../page/User/Permissions/permissions.jsx";
 import NotFind from "../page/Error/not-find.jsx";
 import NoPermissions from "../page/Error/no-permissions.jsx";
 import Files from "../page/Files/files.jsx";
+import FileList from "../page/Files/component/file-list.jsx";
+import ImageManagement from "../page/Files/image-management/image-management.jsx";
 
 export default [
   {
@@ -54,7 +56,19 @@ export default [
     path: '/file',
     name: '附件',
     icon: <SmileFilled/>,
-    element: <Files/>
+    element: <Files/>,
+    children: [
+      {
+        path: 'list',
+        name: '全部文件',
+        element: <FileList/>
+      },
+      {
+        path: 'image',
+        name: '图片管理',
+        element: <ImageManagement/>
+      }
+    ]
   },
   {
     path: '/users',
@@ -104,13 +118,13 @@ export default [
     name: '主页',
     hidden: true,
     verify: false,
-    element: <Navigate to={'/dashboard'} />
+    element: <Navigate to={'/dashboard'}/>
   },
   {
     path: '/404',
     name: '404',
     hidden: true,
-    element: <NotFind />,
+    element: <NotFind/>,
     verify: false,
     layout: false
   },
@@ -126,7 +140,7 @@ export default [
     path: '*',
     name: '404',
     hidden: true,
-    element: <Navigate to={'/404'} replace={true} />
+    element: <Navigate to={'/404'} replace={true}/>
   }
 ]
 
