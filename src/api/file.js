@@ -45,3 +45,11 @@ export async function getFileDetail(id) {
     method: 'get'
   })
 }
+
+export async function deleteFile(data) {
+  return request({
+    url: `/file/`,
+    method: 'delete',
+    data
+  })
+}

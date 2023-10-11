@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Form, Input, Switch} from "antd";
+import React from 'react';
+import {Button, Form, Input, Switch, Tooltip} from "antd";
 import {ModalForm,} from '@ant-design/pro-components';
-import {PlusOutlined} from "@ant-design/icons";
+import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import {addRole, getRoleDetail, updateRole} from "../../../../../api/role.js";
 
 
 function RoleEditModal({actionRef, update = false, roleId}) {
   const [form] = Form.useForm();
+
   async function submit(v) {
     console.log(v);
     v.status = v.status ? 1 : 0;
@@ -42,13 +43,14 @@ function RoleEditModal({actionRef, update = false, roleId}) {
           <span>
             {
               update ?
-                <a type={'link'}>编辑</a>
+                <Tooltip placement="bottom" title={'编辑'}>
+                  <Button size={"small"} icon={<EditOutlined/>}/>
+                </Tooltip>
                 :
                 <Button type="primary">
                   <PlusOutlined/>
                   新增
                 </Button>
-
             }
           </span>
         }

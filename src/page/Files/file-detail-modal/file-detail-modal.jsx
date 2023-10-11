@@ -9,9 +9,10 @@ function FileDetailModal({fileId, display, onClose}) {
     <>
       <Modal title="文件详情"
              open={display}
+             centered
              footer={[]}
              onCancel={onClose}>
-        <Detail loading={loading} detail={detail}/>
+        <Detail style={{height: '100vh', overflow: 'auto'}} loading={loading} detail={detail}/>
       </Modal>
     </>
   );

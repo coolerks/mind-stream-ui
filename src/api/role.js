@@ -61,3 +61,10 @@ export async function addUserRoles(data) {
     data
   })
 }
+export async function deleteRole(id) {
+  return request({
+    url: `/role/`,
+    method: 'delete',
+    params: {id}
+  })
+}

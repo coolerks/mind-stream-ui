@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {CheckCard} from "@ant-design/pro-components";
-import {Avatar, Button, Dropdown, FloatButton, Pagination, Tooltip} from "antd";
+import {Avatar, Button, Dropdown, FloatButton, Pagination, Tooltip, message} from "antd";
 import useRequest from "../../../hooks/useRequest.js";
-import {getFilePage} from "../../../api/file.js";
+import {deleteFile, getFilePage} from "../../../api/file.js";
 import {getImage} from "../../../util/fileImageUtil.js";
 import NavigationBar from "./navigation-bar.jsx";
 import {
@@ -35,6 +35,7 @@ function FileList(props) {
   const [selection, setSelection] = useState(false);
   const [displayUpload, setDisplayUpload] = useState(false);
   const [displayMkdir, setDisplayMkdir] = useState(false);
+  const [selectFiles, setSelectFiles] = useState([]);
 
   const menu = [
     {label: <span><CloudUploadOutlined/> 上传</span>, key: 'upload'},
@@ -45,6 +46,10 @@ function FileList(props) {
 
 
   const openFile = e => {
+    if (typeof e === 'object') {
+      setSelectFiles(e);
+      return;
+    }
     if (e === undefined) {
       if (selection) {
         setSelection(false);
@@ -149,6 +154,20 @@ function FileList(props) {
     },
     'mkdir': () => {
       setDisplayMkdir(true);
+    },
+    'remove': async () => {
+      if (selectFiles.length === 0) {
+        message.error('未选择任何文件或文件夹');
+        return;
+      }
+      const deleteFiles = {};
+      deleteFiles.fileId = selectFiles.filter(it => !(typeof it === 'string' && it.indexOf('-') > 0));
+      deleteFiles.folderId = selectFiles.filter(it => typeof it === 'string' && it.indexOf('-') > 0)
+        .map(it => it.split('-')[1]);
+      await deleteFile(deleteFiles);
+      message.success('删除成功');
+      setSelectFiles([]);
+      click['refresh']();
     }
   }
 
@@ -176,7 +195,7 @@ function FileList(props) {
         {!selection && <Button onClick={() => click['refresh']()}
                                type="default" icon={<ReloadOutlined/>}
                                size={"large"}/>}
-        {selection && <Button type="primary" icon={<DeleteOutlined/>} danger
+        {selection && <Button type="primary" icon={<DeleteOutlined/>} danger onClick={() => click['remove']()}
                               size={"large"}/>}
         {selection && <Button type="default" icon={<CloseOutlined />} onClick={() => click['select']()}
                               danger
@@ -200,7 +219,7 @@ function FileList(props) {
                   onChange={p => setPage({...page, pageNumber: p})}/>
       {
         selection && <FloatButton.Group shape="circle" style={{right: 24}}>
-          <FloatButton type={'primary'} icon={<DeleteOutlined/>}/>
+          <FloatButton onClick={() => click['remove']()} type={'primary'} icon={<DeleteOutlined/>}/>
           <FloatButton onClick={() => setSelection(false)} icon={<CloseOutlined/>}/>
         </FloatButton.Group>
       }

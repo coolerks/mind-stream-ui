@@ -1,7 +1,5 @@
 import React, {useRef} from 'react';
-import {PlusOutlined} from '@ant-design/icons';
-import {ProTable, TableDropdown} from '@ant-design/pro-components';
-import {Button} from 'antd';
+import {ProTable} from '@ant-design/pro-components';
 import {getAccountList} from "../../../../api/account.js";
 import columns from "./component/Columns.jsx";
 import {proTableRequest} from "../../common/proTableRequest.js";
@@ -10,6 +8,8 @@ import {displayAssignRoleModal, displayUserDetailModel} from "../../../../store/
 import UserDetailModal from "../UserDetailModal/user-detail-modal.jsx";
 import UserEditModal from "./UserEditModal/user-edit-modal.jsx";
 import AssignRolesModal from "./assign-roles-modal/assign-roles-modal.jsx";
+import {Button, Tooltip} from "antd";
+import {EyeOutlined, UsergroupAddOutlined} from "@ant-design/icons";
 
 
 function UserList(props) {
@@ -21,22 +21,19 @@ function UserList(props) {
     key: 'option',
     render: (text, record, _, action) => [
       <UserEditModal actionRef={actionRef} userId={record.id} update={true} key={'add'}/>,
-      <a onClick={() => dispatch(displayUserDetailModel(record.id))}
-         rel="noopener noreferrer"
-         key="view">
-        查看
-      </a>,
-      <a onClick={() => dispatch(displayAssignRoleModal(record.id))} key={'assign-role'}>
-        分配角色
-      </a>,
-      <TableDropdown
-        key="actionGroup"
-        onSelect={() => action?.reload()}
-        menus={[
-          {key: 'copy', name: '复制'},
-          {key: 'delete', name: '删除'},
-        ]}
-      />,
+      <Tooltip key="view" placement="bottom" title={'查看详情'}>
+        <Button
+          key="view"
+          size={"small"}
+          onClick={() => dispatch(displayUserDetailModel(record.id))}
+          icon={<EyeOutlined/>}/>
+      </Tooltip>,
+      <Tooltip key={'assign-role'} placement="bottom" title={'分配角色'}>
+        <Button
+          icon={<UsergroupAddOutlined/>}
+          size={"small"}
+          onClick={() => dispatch(displayAssignRoleModal(record.id))} />
+      </Tooltip>
     ],
   };
   return (

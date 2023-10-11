@@ -1,16 +1,20 @@
 import React, {useState} from 'react';
 import {ModalForm} from "@ant-design/pro-components";
-import {Button, Form, Input, Radio, Switch} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
+import {Avatar, Button, Form, Input, Radio, Space, Switch, Tooltip} from "antd";
+import {EditOutlined, PlusOutlined} from "@ant-design/icons";
 import {addAccount, getAccountDetail, updateAccount} from "../../../../../api/account.js";
+import SelectImageModal from "../../../../Files/image-management/select-image-modal.jsx";
 
 function UserEditModal({actionRef, update = false, userId}) {
   const [form] = Form.useForm();
   const [display, setDisplay] = useState(false);
+  const [displayImage, setDisplayImage] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState('https://blog.integer.top/avatar');
 
   async function submit(v) {
     v.status = v.status ? 1 : 0;
     v.gender = v.gender === '1';
+    v.avatar = avatarUrl;
     if (update) {
       console.log(v);
       v.id = userId;
@@ -24,6 +28,9 @@ function UserEditModal({actionRef, update = false, userId}) {
 
   return (
     <>
+      <SelectImageModal onClose={() => setDisplayImage(false)} display={displayImage} onSelect={item => {
+        setAvatarUrl(item.compressPath);
+      }}/>
       <ModalForm
         onFinish={submit}
         request={async () => {
@@ -31,6 +38,7 @@ function UserEditModal({actionRef, update = false, userId}) {
             const data = await getAccountDetail(userId);
             data.status = data.status === 1;
             data.gender = data.gender ? '1' : '0';
+            setAvatarUrl(data.avatar);
             return data;
           }
           return {status: true, gender: '1'};
@@ -41,7 +49,9 @@ function UserEditModal({actionRef, update = false, userId}) {
           <span>
             {
               update ?
-                <a type={'link'}>编辑</a>
+                <Tooltip placement="bottom" title={'编辑'}>
+                  <Button size={"small"} icon={<EditOutlined/>}/>
+                </Tooltip>
                 :
                 <Button type="primary">
                   <PlusOutlined/>
@@ -59,6 +69,10 @@ function UserEditModal({actionRef, update = false, userId}) {
         }}
         submitTimeout={2000}
       >
+        <Space>
+          <span>头像：</span>
+          <Avatar onClick={() => setDisplayImage(true)} size={64} src={avatarUrl}/>
+        </Space>
         {
           !update && <Form.Item
             label="邮箱"
@@ -101,6 +115,7 @@ function UserEditModal({actionRef, update = false, userId}) {
             <Input/>
           </Form.Item>
         }
+
         <Form.Item
           label="昵称"
           name="nickname"
@@ -168,7 +183,6 @@ function UserEditModal({actionRef, update = false, userId}) {
             <Input.Password/>
           </Form.Item>
         }
-
         <Form.Item label="性别" name={'gender'}>
           <Radio.Group>
             <Radio value="1"> 男 </Radio>

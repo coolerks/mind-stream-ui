@@ -11,7 +11,6 @@ const fileMap = {
   "fullPath": "路径",
   "compressPath": "压缩路径",
   "downloadLink": "下载链接",
-  "pressLink": "压缩链接",
   "size": "大小",
   "policy": "存储策略",
   "createTime": "创建时间"
@@ -29,10 +28,10 @@ export default function useFileDetail(fileId) {
     resultMap: fileMap,
     dataParse: (file) => {
       const {fullPath, compressPath} = file;
-      file['downloadLink'] = <a href={file['downloadLink']} target={'_blank'}>查看</a>
-      file['pressLink'] = <a href={file['pressLink']} target={'_blank'}>查看</a>
+      file['downloadLink'] = <a href={file['downloadLink']} target={'_blank'}>打开</a>
       file['fullPath'] = <a onClick={() => press(fullPath)}>点击复制</a>
       file['compressPath'] = <a onClick={() => press(compressPath)}>点击复制</a>
+      file['size'] = `${(Number.parseInt(file['size']) / 1024 / 1024).toFixed(2)} MB`
     },
     onParseComplete: (role, arr) => {
       const {user} = role;
